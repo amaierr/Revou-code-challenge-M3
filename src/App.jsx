@@ -38,7 +38,21 @@ function App() {
   
   // Issue 7: Tidak ada error handling
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id))
+    if (id === undefined || id === null) {
+      alert('Todo ID tidak valid')
+      return
+    }
+
+    const todoExists = todos.some((todo) => todo.id === id)
+
+    if (!todoExists) {
+      alert(`Todo dengan ID ${id} tidak ditemukan`)
+      return
+    }
+
+    setTodos((currentTodos) =>
+      currentTodos.filter((todo) => todo.id !== id)
+    )
   }
   
   const toggleTodo = (id) => {
