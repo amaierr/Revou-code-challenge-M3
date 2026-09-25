@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react'
 
 function App() {
-  // Issue 2: State management bisa lebih baik
-  const [todos, setTodos] = useState([])
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState('all')
-  
-  // Issue 3: useEffect tanpa dependency array yang tepat
-  useEffect(() => {
-    // Load from localStorage
-    const saved = localStorage.getItem('todos')
-    if (saved) {
-      setTodos(JSON.parse(saved))
+
+  const [todos, setTodos] = useState(() => {
+      try {
+        const savedTodos = localStorage.getItem('todos')
+        return savedTodos ? JSON.parse(savedTodos) : []
+      } catch {
+        return []
+      }
     }
-  }, [])
+  )
   
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
