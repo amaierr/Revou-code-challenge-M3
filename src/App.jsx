@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 function App() {
   const [input, setInput] = useState('')
@@ -36,7 +36,6 @@ function App() {
     setInput('')
   }
   
-  // Issue 7: Tidak ada error handling
   const deleteTodo = (id) => {
     if (id === undefined || id === null) {
       alert('Todo ID tidak valid')
@@ -61,8 +60,8 @@ function App() {
     ))
   }
   
-  // Issue 8: Logic filtering yang bisa dipindah ke useMemo
-  const getFilteredTodos = () => {
+  const filteredTodos = useMemo(() => {
+    console.log("masuk")
     if (filter === 'active') {
       return todos.filter(todo => !todo.completed)
     }
@@ -70,7 +69,7 @@ function App() {
       return todos.filter(todo => todo.completed)
     }
     return todos
-  }
+  }, [todos, filter])
   
   // Issue 9: Calculation yang tidak perlu di setiap render
   const stats = {
@@ -124,7 +123,7 @@ function App() {
       
       <div className="todo-list">
         {/* Issue 13: Tidak ada handling untuk empty state */}
-        {getFilteredTodos().map((todo) => (
+        {filteredTodos.map((todo) => (
           // Issue 14: Key menggunakan index bisa lebih baik dengan ID
           <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
             <input 
