@@ -61,14 +61,16 @@ function App() {
   }
   
   const filteredTodos = useMemo(() => {
-    console.log("masuk")
-    if (filter === 'active') {
-      return todos.filter(todo => !todo.completed)
+    switch (filter) {
+      case 'active': 
+        return todos.filter(todo => !todo.completed)
+
+      case 'completed':
+        return todos.filter(todo => todo.completed)
+      
+      default:
+        return todos
     }
-    if (filter === 'completed') {
-      return todos.filter(todo => todo.completed)
-    }
-    return todos
   }, [todos, filter])
   
   // Issue 9: Calculation yang tidak perlu di setiap render
