@@ -132,23 +132,37 @@ function App() {
       </div>
       
       <div className="todo-list">
-        {/* Issue 13: Tidak ada handling untuk empty state */}
-        {filteredTodos.map((todo) => (
-          <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            <input 
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-            />
-            <span>{todo.text}</span>
-            <button 
-              className="delete-btn"
-              onClick={() => deleteTodo(todo.id)}
-            >
-              Delete
-            </button>
+        {filteredTodos.length === 0 ? (
+          <div className="empty-state" role="status">
+            <p>Belum ada todo.</p>
+            <p>Tambahkan todo pertamamu melalui kolom di atas.</p>
           </div>
-        ))}
+        ) : (
+          filteredTodos.map((todo) => (
+            <div
+              key={todo.id}
+              className={`todo-item ${
+                todo.completed ? 'completed' : ''
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+                aria-label={`Ubah status ${todo.text}`}
+              />
+
+              <span>{todo.text}</span>
+
+              <button
+                className="delete-btn"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
       </div>
       
       <div className="stats">
