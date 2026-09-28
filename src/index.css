@@ -104,3 +104,17 @@ button:hover {
   color: #666;
   font-size: 14px;
 }
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-section button {
+  background: #007bff;
+}
+
+.filter-section button.filter-active {
+  background: #28a745;
+}
