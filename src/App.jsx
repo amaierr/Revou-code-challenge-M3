@@ -91,9 +91,11 @@ function App() {
     <div className="app">
       <h1>My Todo List</h1>
       
-      {/* Issue 11: Tidak ada label untuk accessibility */}
       <div className="input-section">
+        <label htmlFor="todo-input">Todo baru</label>
+
         <input 
+          id="todo-input"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -132,7 +134,6 @@ function App() {
       <div className="todo-list">
         {/* Issue 13: Tidak ada handling untuk empty state */}
         {filteredTodos.map((todo) => (
-          // Issue 14: Key menggunakan index bisa lebih baik dengan ID
           <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
             <input 
               type="checkbox"
